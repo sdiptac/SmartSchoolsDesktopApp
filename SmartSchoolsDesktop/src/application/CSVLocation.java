@@ -5,7 +5,7 @@ import java.sql.*;
 
 public class CSVLocation {
 
-	static String query = null;
+	static String query;
 	static Statement statement = null;
 	static PreparedStatement prepare = null;
 	static ResultSet resultset = null;
@@ -22,7 +22,7 @@ public class CSVLocation {
 	private static String[] org;
 	
 		
-	public static String[][] enteredName(String firstname, String lastname){
+	public static String[][] findUsers(String firstname, String lastname){
 		firstname = firstname.replace("%", "");
 		lastname = lastname.replace("_", "");
 		firstname = firstname.toLowerCase();
@@ -66,7 +66,7 @@ public class CSVLocation {
 	}
 	
 
-	public static void write(int userID){
+	public static String write(int userID){
 		int i = 0;
 		String[][] info = null;
 		String[] columns = new String[7];
@@ -114,13 +114,17 @@ public class CSVLocation {
 			columns[3] = "Duration";
 			columns[4] = "Time of Access";
 			try{
-				ExportToCSV.export(firstName[0] + "-" + lastName[0], columns, info);
+				if(!ExportToCSV.export(firstName[0] + "-" + lastName[0], columns, info)){
+					return "The number of columns provided does not match the number of columns in the data"; 
+				}
 			}catch(FileNotFoundException f){
-				System.out.println("File Creation Error");
+				return "File Creation Error";
 			}
+		return "Export Succeeded";
 			
-		}catch(Exception e){
-			System.out.println("Database Error");
+		}catch(SQLException e){
+			return "Database Error";
+			
 		}
 	}
 }
