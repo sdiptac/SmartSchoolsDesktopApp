@@ -1,21 +1,16 @@
 package application;
 import java.io.FileNotFoundException;
 import java.sql.*;
-import java.util.Scanner;
 
 
-public class RawData {
+public class CSVLocation {
 
-	static Scanner scanner = new Scanner(System.in);
-	static Connection connection = null;
 	static String query = null;
 	static Statement statement = null;
 	static PreparedStatement prepare = null;
 	static ResultSet resultset = null;
 	
-	static final String url = "jdbc:mysql:lusmartschools.cymnuwsxway1.us-east-1.rds.amazonaws.com";
-	static final String user = "admin";
-	static String password = "smartschools";
+	
 	private static String[] email;
 	private static String[] userID;
 	private static String[] firstName;
@@ -26,16 +21,6 @@ public class RawData {
 	private static String[] building;
 	private static String[] org;
 	
-		
-	public static boolean connect(){
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.	getConnection(url,user,password);
-			return true;
-		} catch(Exception e){
-			return false;
-		}
-	}
 		
 	public static String[][] enteredName(String firstname, String lastname){
 		firstname = firstname.replace("%", "");
@@ -50,7 +35,7 @@ public class RawData {
 		
 		int i = 0;
 		try{
-			prepare = connection.prepareStatement("select userID, first_name, last_name, email from user where first_name like ? and last_name like ?");
+			prepare = Connector.connection.prepareStatement("select userID, first_name, last_name, email from user where first_name like ? and last_name like ?");
 			prepare.setString(1, "%" + firstname + "%");
 			prepare.setString(2, "%" + lastname + "%");
 			resultset = prepare.executeQuery();
@@ -67,9 +52,9 @@ public class RawData {
 		}catch(Exception e){
             	System.out.println("Database Error");
 		}
-		int howMany = userID.length;
-		info = new String[howMany][4];
-		for(int row = 0; row < howMany; row++){
+		int rowLength = userID.length;
+		info = new String[rowLength][4];
+		for(int row = 0; row < rowLength; row++){
 			info[row][0] = userID[row];
 			info[row][1] = firstName[row];
 			info[row][2] = lastName[row];
@@ -94,7 +79,7 @@ public class RawData {
 		lastName = null;
 		
 		try{
-			prepare = connection.prepareStatement("select duration,timeOfAccess,room,building,org,first_name,last_name from accessedAP natural join accesspoint natural join user when userID = ?");
+			prepare = Connector.connection.prepareStatement("select duration,timeOfAccess,room,building,org,first_name,last_name from accessedAP natural join accesspoint natural join user when userID = ?");
 			prepare.setInt(1, userID);
 			resultset = prepare.executeQuery();
 			
@@ -114,9 +99,9 @@ public class RawData {
             }
 		
 			
-			int howMany = duration.length;
-			info = new String[howMany][5];
-			for(int row = 0; row < howMany; row++){
+			int rowLength = duration.length;
+			info = new String[rowLength][5];
+			for(int row = 0; row < rowLength; row++){
 				info[row][0] = room[row];
 				info[row][1] = building[row];
 				info[row][2] = org[row];
