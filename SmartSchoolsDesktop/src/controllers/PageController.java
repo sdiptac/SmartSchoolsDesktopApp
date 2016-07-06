@@ -3,6 +3,8 @@ package controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.Main;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,7 +17,8 @@ public class PageController implements Initializable{
 	
 	@FXML
 	protected void quitPress(Event event) {
-	     System.out.println("quit press");
+		Platform.exit();
+	    System.exit(0);
 	}
 	
 	@FXML
@@ -25,7 +28,9 @@ public class PageController implements Initializable{
 	
 	@FXML
 	protected void locationsPress(Event event) {
-	     System.out.println("ap press");
+		if(Main.getInstance().getAdminUser().isSignedIn()){
+	    	 Main.getInstance().changeScene("LocationsPage");
+	     }
 	}
 	
 	@FXML

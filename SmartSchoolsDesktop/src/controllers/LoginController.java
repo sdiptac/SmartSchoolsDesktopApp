@@ -19,6 +19,6 @@ public class LoginController extends PageController{
 	
 	@FXML
 	protected void signInPress(Event event) {
-	     //Main.getInstance().changeScene("MainMenu");
+	     Main.getInstance().changeScene("LocationsPage");
 	}
 }

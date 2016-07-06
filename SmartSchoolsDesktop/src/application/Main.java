@@ -12,12 +12,13 @@ public class Main extends Application {
 	
 	private static Main instance;
 	private Stage currentStage;
-	private static boolean adminLoggedIn;
+	private AdminUser adminUser;
 	
 	@Override
 	public void start(Stage primaryStage) {
 		instance = this;
 		this.currentStage = primaryStage;
+		adminUser = new AdminUser();
 		
 		changeScene("Login");
 	}
@@ -45,5 +46,9 @@ public class Main extends Application {
 	
 	public Stage getCurrentStage(){
 		return this.currentStage;
+	}
+
+	public AdminUser getAdminUser(){
+		return this.adminUser;
 	}
 }
