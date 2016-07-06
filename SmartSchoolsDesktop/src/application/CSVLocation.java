@@ -21,10 +21,11 @@ public class CSVLocation {
 	private static String[] building;
 	private static String[] org;
 	
-		
+	public static String[][] findAllUsers(){
+		return findUsers("", "");
+	}
+	
 	public static String[][] findUsers(String firstname, String lastname){
-		firstname = firstname.replace("%", "");
-		lastname = lastname.replace("_", "");
 		firstname = firstname.toLowerCase();
 		lastname = lastname.toLowerCase();
 		String[][] info;

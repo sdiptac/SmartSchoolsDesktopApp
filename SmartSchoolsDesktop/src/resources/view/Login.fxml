@@ -34,9 +34,8 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="720.0" minWidth="1280.0" prefWidth="1280.0" VBox.vgrow="ALWAYS">
          <children>
-            <PasswordField layoutX="569.0" layoutY="338.0" />
-            <Label layoutX="600.0" layoutY="315.0" text="Admin Password" textAlignment="CENTER" />
-            <Label fx:id="incorrectPasswordLabel" layoutX="592.0" layoutY="376.0" text="Incorrect Password" textAlignment="CENTER" textFill="#bc0000"/>
+            <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="569.0" layoutY="338.0" promptText="Admin Password" />
+            <Label fx:id="incorrectPasswordLabel" layoutX="592.0" layoutY="376.0" text="Incorrect Password" textAlignment="CENTER" textFill="#bc0000" />
             <Button layoutX="756.0" layoutY="339.0" mnemonicParsing="false" onMouseClicked="#signInPress" text="Sign In" />
          </children>
     </AnchorPane>
