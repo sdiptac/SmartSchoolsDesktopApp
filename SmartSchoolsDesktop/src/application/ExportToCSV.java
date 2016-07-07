@@ -2,6 +2,8 @@ package application;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 public class ExportToCSV {
@@ -11,7 +13,8 @@ public class ExportToCSV {
 		}
 		
 		try{
-			PrintWriter writer = new PrintWriter(new File(name + "_" + data.get(0)[1] + "_to_" + data.get(data.size()-1)[1] + "_access_point_data.csv"));
+			Date date = Calendar.getInstance().getTime();
+			PrintWriter writer = new PrintWriter(new File(name + " created "+ date.toString().replace(':', '.') + ".csv"));
 			StringBuilder builder = new StringBuilder();
 			
 			builder.append(Arrays.stream(col).collect(Collectors.joining(", "))).append("\n");

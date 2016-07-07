@@ -9,6 +9,7 @@ public class PageType {
 		LOGIN,
 		MAIN_MENU,
 		LOCATION,
+		USER,
 	}
 	
 	 public static final Map<Type, String> pageMap;
@@ -16,7 +17,8 @@ public class PageType {
 	        Map<Type, String> map = new HashMap<Type, String>();
 	        map.put(Type.LOGIN, "Login");
 	        map.put(Type.MAIN_MENU, "MainMenu");
-	        map.put(Type.MAIN_MENU, "LocationsPage");
+	        map.put(Type.LOCATION, "LocationsPage");
+	        map.put(Type.USER, "UsersPage");
 	        pageMap = Collections.unmodifiableMap(map);
 	    }
 }

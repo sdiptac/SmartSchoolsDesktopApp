@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.Main;
+import application.PageType;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -23,13 +24,15 @@ public class PageController implements Initializable{
 	
 	@FXML
 	protected void usersPress(Event event) {
-		System.out.println("user press");
+		if(Main.getInstance().getAdminUser().isSignedIn()){
+	    	 Main.getInstance().changeScene(PageType.pageMap.get(PageType.Type.USER));
+	     }
 	}
 	
 	@FXML
 	protected void locationsPress(Event event) {
 		if(Main.getInstance().getAdminUser().isSignedIn()){
-	    	 Main.getInstance().changeScene("LocationsPage");
+	    	 Main.getInstance().changeScene(PageType.pageMap.get(PageType.Type.LOCATION));
 	     }
 	}
 	

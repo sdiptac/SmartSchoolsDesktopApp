@@ -34,24 +34,7 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="720.0" minWidth="1280.0" prefWidth="1280.0" VBox.vgrow="ALWAYS">
          <children>
-            <SplitPane dividerPositions="0.2519561815336463" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <ListView fx:id="userList" layoutX="88.0" layoutY="259.0" prefHeight="718.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <Label fx:id="userLabel" layoutX="137.0" layoutY="82.0" text="Last, First, Email">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <Button layoutX="734.0" layoutY="562.0" mnemonicParsing="false" onAction="#printButtonPress" text="Create CSV" />
-                     </children></AnchorPane>
-              </items>
-            </SplitPane>
+            <Button layoutX="595.0" layoutY="347.0" mnemonicParsing="false" onAction="#printButtonPress" text="Create CSV" />
          </children>
     </AnchorPane>
   </children>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UsersController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#preferencesQuit" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#quitPress" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="View">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#usersPress" text="Users" />
+            <MenuItem mnemonicParsing="false" onAction="#locationsPress" text="Locations" />
+            <MenuItem mnemonicParsing="false" onAction="#fitbitPress" text="Fitbit" />
+          </items>
+        </Menu>
+            <Menu mnemonicParsing="false" text="Users">
+              <items>
+                  <MenuItem mnemonicParsing="false" text="Search By Email">
+                     <graphic>
+                        <TextField fx:id="searchByEmailText" onAction="#searchByEmailTextChanged" />
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" text="Search By Last Name">
+                     <graphic>
+                        <TextField fx:id="searchByLastNameText" onAction="#searchByLastNameTextChanged" />
+                     </graphic>
+                  </MenuItem>
+                <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <SplitMenuButton mnemonicParsing="false" text="Sort Users By:">
+                          <items>
+                            <MenuItem mnemonicParsing="false" onAction="#sortByUserIDPress" text="User ID" />
+                              <MenuItem mnemonicParsing="false" onAction="#sortByLastNamePress" text="Last Name" />
+                              <MenuItem mnemonicParsing="false" onAction="#sortByEmailPress" text="Email" />
+                          </items>
+                        </SplitMenuButton>
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#clearSearchPress" text="Clear Search" />
+              </items>
+            </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#viewHelpPress" text="View Help" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="720.0" minWidth="1280.0" prefWidth="1280.0" VBox.vgrow="ALWAYS">
+         <children>
+            <SplitPane dividerPositions="0.2519561815336463" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <ListView fx:id="userListView" layoutX="88.0" layoutY="259.0" prefHeight="718.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <Label fx:id="userLabel" alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="14.0" layoutY="14.0" prefHeight="187.0" prefWidth="371.0" textOverrun="CLIP" wrapText="true">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
+              </items>
+            </SplitPane>
+         </children>
+    </AnchorPane>
+  </children>
+</VBox>

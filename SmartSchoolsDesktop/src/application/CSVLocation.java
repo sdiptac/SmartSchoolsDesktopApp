@@ -39,39 +39,39 @@ public class CSVLocation {
             	System.out.println("Database Error");
             	return info;
 		}
-
 		return info;
 	}
-	
 
-	public static String write(int userID){
+	public static String write(){
 		ArrayList<String[]> info = new ArrayList<String[]>();
 		
 		try{
 			Connector.connect();
-			PreparedStatement prepare = Connector.connection.prepareStatement("select duration,timeOfAccess,room,building,org,first_name,last_name from accessedAP natural join accesspoint natural join user where userID = ?");
-			prepare.setInt(1, userID);
+			PreparedStatement prepare = Connector.connection.prepareStatement("select duration,timeOfAccess,room,building,bssid,ssid,org,first_name,last_name from accessedAP natural join accesspoint natural join user order by userid");
+	
 			ResultSet resultset  = prepare.executeQuery();
 			if (!resultset.next()){ 
 				return "No entries returned";
 			}
 			
         	do {
-        		String[] row = new String[7];
-        		row[0] = resultset.getString("duration");
-        		row[1] = resultset.getString("timeOfAccess");
-        		row[2] = resultset.getString("room");
-        		row[3] = resultset.getString("building");
-        		row[4] = resultset.getString("org");
-        		row[5] = resultset.getString("first_name");
-        		row[6] = resultset.getString("last_name");
+        		String[] row = new String[9];
+        		row[0] = resultset.getString("first_name");
+        		row[1] = resultset.getString("last_name");
+        		row[2] = resultset.getString("duration");
+        		row[3] = resultset.getString("timeOfAccess");
+        		row[4] = resultset.getString("room");
+        		row[5] = resultset.getString("building");
+        		row[6] = resultset.getString("org");
+        		row[7] = resultset.getString("bssid");
+        		row[8] = resultset.getString("ssid");
         		info.add(row);
         	} while (resultset.next());
         	
         	Connector.disconnect();
 
 			try{
-				if(!ExportToCSV.export(info.get(0)[5] + "_" + info.get(0)[6], new String[]{"Duration", "Time of Access", "Room", "Building", "Org", "First_Name", "Last_Name"}, info)){
+				if(!ExportToCSV.export("AccessPointData", new String[]{"First_Name", "Last_Name", "Duration", "Time of Access", "Room", "Building", "BSSID", "SSID", "Org"}, info)){
 					return "The number of columns provided does not match the number of columns in the data"; 
 				}
 			}catch(FileNotFoundException f){
@@ -81,7 +81,6 @@ public class CSVLocation {
 			
 		}catch(SQLException e){
 			return e.toString();
-			
 		}
 	}
 }
