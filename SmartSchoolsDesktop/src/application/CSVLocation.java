@@ -42,7 +42,7 @@ public class CSVLocation {
 		return info;
 	}
 
-	public static String write(){
+	public static String write(String absolutePath){
 		ArrayList<String[]> info = new ArrayList<String[]>();
 		
 		try{
@@ -71,7 +71,7 @@ public class CSVLocation {
         	Connector.disconnect();
 
 			try{
-				if(!ExportToCSV.export("AccessPointData", new String[]{"First_Name", "Last_Name", "Duration", "Time of Access", "Room", "Building", "BSSID", "SSID", "Org"}, info)){
+				if(!ExportToCSV.export(absolutePath, "AccessPointData", new String[]{"First_Name", "Last_Name", "Duration", "Time of Access", "Room", "Building", "BSSID", "SSID", "Org"}, info)){
 					return "The number of columns provided does not match the number of columns in the data"; 
 				}
 			}catch(FileNotFoundException f){

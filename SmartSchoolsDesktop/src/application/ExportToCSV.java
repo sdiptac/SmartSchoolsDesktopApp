@@ -7,14 +7,14 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 public class ExportToCSV {
-	public static boolean export(String name, String[] col, ArrayList<String[]> data) throws FileNotFoundException{
+	public static boolean export(String absolutePath, String name, String[] col, ArrayList<String[]> data) throws FileNotFoundException{
 		if(col.length != data.get(0).length){
 			return false;
 		}
 		
 		try{
 			Date date = Calendar.getInstance().getTime();
-			PrintWriter writer = new PrintWriter(new File(name + " created "+ date.toString().replace(':', '.') + ".csv"));
+			PrintWriter writer = new PrintWriter(new File(absolutePath + File.separator + name + " created "+ date.toString().replace(':', '.') + ".csv"));
 			StringBuilder builder = new StringBuilder();
 			
 			builder.append(Arrays.stream(col).collect(Collectors.joining(", "))).append("\n");
