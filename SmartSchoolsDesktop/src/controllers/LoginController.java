@@ -27,10 +27,11 @@ public class LoginController extends PageController{
 	@FXML
 	protected void signInPress(Event event) {
 	     AdminUser user = Main.getInstance().getAdminUser();
-	     user.setPassword(passwordField.getPromptText());
+	     user.setPassword(passwordField.getText());
 	     if(Connector.connect()){
 	    	 user.setSignedIn(true);
 	    	 Main.getInstance().changeScene(PageType.pageMap.get(PageType.Type.MAIN_MENU));
+	    	 Connector.disconnect();
 	     }else{
 	    	 user.setSignedIn(false);
 	    	 user.setPassword("");

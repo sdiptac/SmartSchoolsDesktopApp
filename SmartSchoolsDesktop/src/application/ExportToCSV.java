@@ -1,32 +1,29 @@
 package application;
 import java.io.*;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class ExportToCSV {
-	public static boolean export(String name, String[] col, String[][] data) throws FileNotFoundException{
-		if(col.length != data[0].length){
+	public static boolean export(String name, String[] col, ArrayList<String[]> data) throws FileNotFoundException{
+		if(col.length != data.get(0).length){
 			return false;
 		}
-		PrintWriter writer = new PrintWriter(new File(name + "Data.csv"));
-		Date date = Calendar.getInstance().getTime();
-		StringBuilder builder = new StringBuilder();
-		for(int i = 0; i < col.length; i++){
-			builder.append(col[i]);
-			builder.append(',');
+		
+		try{
+			PrintWriter writer = new PrintWriter(new File(name + "_" + data.get(0)[1] + "_to_" + data.get(data.size()-1)[1] + "_access_point_data.csv"));
+			StringBuilder builder = new StringBuilder();
+			
+			builder.append(Arrays.stream(col).collect(Collectors.joining(", "))).append("\n");
+			
+			builder.append(data.stream().map(row -> Arrays.stream(row).collect(Collectors.joining(", "))).collect(Collectors.joining("\n")));
+			
+			writer.write(builder.toString());
+			writer.close();
+		}catch(Exception e){
+			return false;
 		}
-		builder.append('\n');
-		for(int row = 0; row < data.length; row++){
-			for(int column = 0; column < data[0].length; column++){
-				builder.append(data[row][column]);
-				builder.append(',');
-			}
-			builder.deleteCharAt(builder.length() - 1);
-			builder.append('\n');
-		}
-		builder.append(date);
-		writer.write(builder.toString());
-		writer.close();
+		
 		return true;
 	}
 }

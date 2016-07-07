@@ -37,6 +37,7 @@
             <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="569.0" layoutY="338.0" promptText="Admin Password" />
             <Label fx:id="incorrectPasswordLabel" layoutX="592.0" layoutY="376.0" text="Incorrect Password" textAlignment="CENTER" textFill="#bc0000" />
             <Button layoutX="756.0" layoutY="339.0" mnemonicParsing="false" onMouseClicked="#signInPress" text="Sign In" />
+            <Label layoutX="601.0" layoutY="315.0" text="Admin Password" textAlignment="CENTER" />
          </children>
     </AnchorPane>
   </children>
