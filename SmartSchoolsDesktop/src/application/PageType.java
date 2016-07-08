@@ -10,6 +10,7 @@ public class PageType {
 		MAIN_MENU,
 		LOCATION,
 		USER,
+		QUESTION,
 	}
 	
 	 public static final Map<Type, String> pageMap;
@@ -19,6 +20,7 @@ public class PageType {
 	        map.put(Type.MAIN_MENU, "MainMenu");
 	        map.put(Type.LOCATION, "LocationsPage");
 	        map.put(Type.USER, "UsersPage");
+	        map.put(Type.QUESTION, "QuestionsPage");
 	        pageMap = Collections.unmodifiableMap(map);
 	    }
 }

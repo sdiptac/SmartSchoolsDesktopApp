@@ -30,6 +30,13 @@ public class PageController implements Initializable{
 	}
 	
 	@FXML
+	protected void questionPress(Event event) {
+		if(Main.getInstance().getAdminUser().isSignedIn()){
+	    	 Main.getInstance().changeScene(PageType.pageMap.get(PageType.Type.QUESTION));
+	     }
+	}
+	
+	@FXML
 	protected void locationsPress(Event event) {
 		if(Main.getInstance().getAdminUser().isSignedIn()){
 	    	 Main.getInstance().changeScene(PageType.pageMap.get(PageType.Type.LOCATION));

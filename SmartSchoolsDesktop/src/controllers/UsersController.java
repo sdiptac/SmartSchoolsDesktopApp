@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-import application.CSVLocation;
+
+import database.CSVLocation;
+import database.CSVUser;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -116,7 +118,7 @@ public class UsersController extends PageController {
 	}
 	
 	private void fillUserList(){
-		List<String> list = CSVLocation.findAllUsers().stream().map((String[] row) -> Arrays.stream(row).collect(Collectors.joining(", "))).collect(Collectors.toList());
+		List<String> list = CSVUser.findAllUsers().stream().map((String[] row) -> Arrays.stream(row).collect(Collectors.joining(", "))).collect(Collectors.toList());
 		list = list.parallelStream().map(row -> row = String.format("%-4s %s %s %s", (Object[])row.split(","))).collect(Collectors.toList());
 		userList = list;
 		

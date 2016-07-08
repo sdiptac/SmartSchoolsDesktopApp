@@ -21,6 +21,7 @@
         <Menu mnemonicParsing="false" text="View">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#usersPress" text="Users" />
+                  <MenuItem mnemonicParsing="false" onAction="#questionPress" text="Questions" />
             <MenuItem mnemonicParsing="false" onAction="#locationsPress" text="Locations" />
             <MenuItem mnemonicParsing="false" onAction="#fitbitPress" text="Fitbit" />
           </items>

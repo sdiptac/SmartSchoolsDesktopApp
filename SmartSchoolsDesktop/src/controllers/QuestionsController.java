@@ -11,7 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.DirectoryChooser;
 
-public class LocationController extends PageController {
+public class QuestionsController extends PageController {
 	@FXML private Button printButton;
 	
 	
