@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import application.Main;
 import database.CSVLocation;
+import database.CSVQuestion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,7 +26,7 @@ public class QuestionsController extends PageController {
 		                public void handle(final ActionEvent e) {
 		                    File file = dirChooser.showDialog(Main.getInstance().getCurrentStage().getScene().getWindow());
 		                    if (file != null) {
-		                    	 CSVLocation.write(file.getAbsolutePath().toString());
+		                    	 CSVQuestion.write(file.getAbsolutePath().toString());
 		                    }
 		                }
 		            });

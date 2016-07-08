@@ -14,8 +14,7 @@ public class CSVQuestion {
 		
 		try{
 			Connector.connect();
-			PreparedStatement prepare = Connector.connection.prepareStatement("select duration,timeOfAccess,room,building,bssid,ssid,org,first_name,last_name from accessedAP natural join accesspoint natural join user order by userid");
-	
+			PreparedStatement prepare = Connector.connection.prepareStatement("select first_name, last_name, email, typeOfEvent, typeOfQuestion, question, response, timeOfEvent, timeOfFeedback from feedback natural join feedback_event natural join event natural join questions_event natural join questions_feedback natural join user natural join questions natural join user_event group by feedbackid order by userid");
 			ResultSet resultset  = prepare.executeQuery();
 			if (!resultset.next()){ 
 				return "No entries returned";
@@ -25,20 +24,20 @@ public class CSVQuestion {
         		String[] row = new String[9];
         		row[0] = resultset.getString("first_name");
         		row[1] = resultset.getString("last_name");
-        		row[2] = resultset.getString("duration");
-        		row[3] = resultset.getString("timeOfAccess");
-        		row[4] = resultset.getString("room");
-        		row[5] = resultset.getString("building");
-        		row[6] = resultset.getString("org");
-        		row[7] = resultset.getString("bssid");
-        		row[8] = resultset.getString("ssid");
+        		row[2] = resultset.getString("email");
+        		row[3] = resultset.getString("typeOfEvent");
+        		row[4] = resultset.getString("typeOfQuestion");
+        		row[5] = resultset.getString("question").replaceAll(",", "\",\"").replace('\n', Character.MIN_VALUE);
+        		row[6] = resultset.getString("response").replaceAll(",", "\",\"").replace('\n', Character.MIN_VALUE);
+        		row[7] = resultset.getString("timeOfEvent");
+        		row[8] = resultset.getString("timeOfFeedback");
         		info.add(row);
         	} while (resultset.next());
         	
         	Connector.disconnect();
 
 			try{
-				if(!ExportToCSV.export(absolutePath, "AccessPointData", new String[]{"First_Name", "Last_Name", "Duration", "Time of Access", "Room", "Building", "BSSID", "SSID", "Org"}, info)){
+				if(!ExportToCSV.export(absolutePath, "QuestionData", new String[]{"First Name", "Last Name", "Email", "Time of Event", "Type of Question", "Question", "Response", "Time of Event", "Time of Feedback"}, info)){
 					return "The number of columns provided does not match the number of columns in the data"; 
 				}
 			}catch(FileNotFoundException f){
