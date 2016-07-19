@@ -4,9 +4,10 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import application.Main;
-import database.CSVLocation;
+import application.PageType;
 import database.CSVQuestion;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -30,5 +31,12 @@ public class QuestionsController extends PageController {
 		                    }
 		                }
 		            });
+	}
+	
+	@FXML
+	protected void editButtonPress(Event event) {
+		if(Main.getInstance().getAdminUser().isSignedIn()){
+	    	 Main.getInstance().changeScene(PageType.pageMap.get(PageType.Type.QUALTRICS));
+	     }
 	}
 }
