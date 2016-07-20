@@ -13,7 +13,13 @@ public class CSVQuestion {
 	private static final String getQuestionResponsesToCSVQuery = "select first_name, last_name, email, typeOfEvent, typeOfQuestion, question, response, timeOfEvent, timeOfFeedback from feedback natural join feedback_event natural join event natural join questions_event natural join questions_feedback natural join user natural join questions natural join user_event group by feedbackid order by userid";
 	private static final String getChoicesQuery = "select choiceID, choice from choices where questionID = ?";
 	private static final String updateQuestionTextQuery = "update questions set question = ? where questionID = ?";
+	private static final String updateChoiceTextQuery = "update choices set choice = ? where choiceID = ? and questionID = ?";
 	private static final String addQuestionQuery = "insert into questions(typeOfQuestion, question, groupID) values(?, ?, ?)";
+	private static final String addChoiceQuery = "insert into choices(questionID, choice) values(?, ?)";
+	
+	private static final String deleteQuestionSelectionQuery = "select * from questions natural join questions_event where questionID = ?";
+	private static final String deleteQuestionQuery = "delete from questions where questionID = ?";
+	private static final String deleteChoiceByQuestionQuery = "delete from choices where questionID = ?"; 
 	
 	private static final String MULTI_CHOICE = "mc";
 	private static final String WHO = "who";
@@ -156,7 +162,35 @@ public class CSVQuestion {
 		}
 	}
 	
-	public static boolean addQuestionText(Question.QuestionType type){
+	public static boolean updateChoiceText(int choiceID, int questionID, String newChoiceText){
+		try{
+			Connector.connect();
+			PreparedStatement prepare = Connector.connection.prepareStatement(updateChoiceTextQuery);
+			
+			System.out.println(choiceID);
+			System.out.println(newChoiceText);
+			
+			prepare.setString(1, newChoiceText);
+			prepare.setInt(2, choiceID);
+			prepare.setInt(3, questionID);
+			
+			int rows = prepare.executeUpdate();
+			Connector.disconnect();
+			if (rows > 0){ 
+				System.out.println("updated");
+				return true;
+			}else{
+				System.out.println("not updated ");
+				return false;
+			}
+		}catch(Exception e){
+			System.out.println("updateChoiceText" + e.toString());
+			Connector.disconnect();
+			return false;
+		}
+	}
+	
+	public static boolean addQuestion(Question.QuestionType type){
 		try{
 			Connector.connect();
 			PreparedStatement prepare = Connector.connection.prepareStatement(addQuestionQuery);
@@ -187,6 +221,66 @@ public class CSVQuestion {
 			}
 		}catch(Exception e){
 			System.out.println("add qusetion" + e.toString());
+			Connector.disconnect();
+			return false;
+		}
+	}
+	
+	public static boolean addChoice(int questionID){
+		try{
+			Connector.connect();
+			PreparedStatement prepare = Connector.connection.prepareStatement(addChoiceQuery);
+						
+			prepare.setInt(1, questionID);
+			prepare.setString(2, "Placeholder Text");
+			
+			int rows = prepare.executeUpdate();
+			Connector.disconnect();
+			if (rows > 0){ 
+				return true;
+			}else{
+				return false;
+			}
+		}catch(Exception e){
+			System.out.println("add choice" + e.toString());
+			Connector.disconnect();
+			return false;
+		}
+	}
+	
+	public static boolean deleteQuestion(int questionID){
+		try{
+			Connector.connect();
+			PreparedStatement preparedSelect = Connector.connection.prepareStatement(deleteQuestionSelectionQuery);
+			preparedSelect.setInt(1, questionID);
+			
+			ResultSet resultset  = preparedSelect.executeQuery();
+			if (!resultset.next()){ 
+			
+				PreparedStatement prepareChoice = Connector.connection.prepareStatement(deleteChoiceByQuestionQuery);
+				prepareChoice.setInt(1, questionID);
+				
+				prepareChoice.executeUpdate();
+
+				PreparedStatement prepare = Connector.connection.prepareStatement(deleteQuestionQuery);
+				prepare.setInt(1, questionID);
+				
+				int rows = prepare.executeUpdate();
+				Connector.disconnect();
+				if (rows > 0){ 
+					System.out.println("rows greater than 0");
+					return true;
+				}else{
+					System.out.println("rows less than 0");
+					return false;
+				}
+			}else{
+				Connector.disconnect();
+				System.out.println("here in else");
+				return false;
+			}
+		}catch(Exception e){
+			System.out.println("delete question" + e.toString());
 			Connector.disconnect();
 			return false;
 		}

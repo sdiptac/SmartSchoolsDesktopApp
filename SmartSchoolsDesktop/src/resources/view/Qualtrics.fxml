@@ -55,22 +55,17 @@
                                  <children>
                                     <SplitPane dividerPositions="0.2519561815336463" prefHeight="716.0" prefWidth="707.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <items>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="714.0" prefWidth="271.0">
                                              <children>
                                                 <ListView fx:id="choicesList" editable="true" layoutX="88.0" layoutY="259.0" prefHeight="718.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="714.0" prefWidth="269.0">
                                              <children>
-                                                <Label fx:id="userLabel1" alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="14.0" layoutY="14.0" prefHeight="187.0" prefWidth="371.0" textOverrun="CLIP" wrapText="true">
-                                                   <font>
-                                                      <Font size="24.0" />
-                                                   </font>
-                                                </Label>
-                                                <Button fx:id="addQuestionButton" disable="true" layoutX="170.0" layoutY="40.0" mnemonicParsing="false" onAction="#addQuestionButtonPress" text="Add Question" />
-                                                <Button fx:id="addChoiceButton" disable="true" layoutX="176.0" layoutY="108.0" mnemonicParsing="false" onAction="#addChoicePress" text="Add Choice" />
-                                                <Button fx:id="deleteQuestionButton" disable="true" layoutX="163.0" layoutY="560.0" mnemonicParsing="false" onAction="#deleteQuestionPress" text="Delete Question" />
-                                                <Button fx:id="deleteChoiceButton" disable="true" layoutX="169.0" layoutY="623.0" mnemonicParsing="false" onAction="#deleteChoicePress" text="Delete Choice" />
+                                                <Button fx:id="addQuestionButton" disable="true" layoutX="37.0" layoutY="40.0" mnemonicParsing="false" onAction="#addQuestionButtonPress" text="Add Question" />
+                                                <Button fx:id="addChoiceButton" disable="true" layoutX="43.0" layoutY="108.0" mnemonicParsing="false" onAction="#addChoicePress" text="Add Choice" />
+                                                <Button fx:id="deleteQuestionButton" disable="true" layoutX="30.0" layoutY="560.0" mnemonicParsing="false" onAction="#deleteQuestionPress" text="Delete Question" />
+                                                <Button fx:id="deleteChoiceButton" disable="true" layoutX="36.0" layoutY="623.0" mnemonicParsing="false" onAction="#deleteChoicePress" text="Delete Choice" />
                                              </children>
                                           </AnchorPane>
                                        </items>
