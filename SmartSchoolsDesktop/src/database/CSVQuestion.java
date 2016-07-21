@@ -2,7 +2,9 @@ package database;
 import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import application.Connector;
 import application.ExportToCSV;
@@ -20,6 +22,9 @@ public class CSVQuestion {
 	private static final String deleteQuestionSelectionQuery = "select * from questions natural join questions_event where questionID = ?";
 	private static final String deleteQuestionQuery = "delete from questions where questionID = ?";
 	private static final String deleteChoiceByQuestionQuery = "delete from choices where questionID = ?"; 
+	private static final String deleteQuestionSelectFeedbackQuery = "select first_name, last_name, email, typeOfEvent, typeOfQuestion, question, response, timeOfEvent, timeOfFeedback , questionID from feedback natural join feedback_event natural join event natural join questions_event natural join questions_feedback natural join user natural join questions natural join user_event where questionid = ?";
+	
+	private static final String deleteChoiceQuery = "delete from choices where choiceID = ?";
 	
 	private static final String MULTI_CHOICE = "mc";
 	private static final String WHO = "who";
@@ -209,7 +214,7 @@ public class CSVQuestion {
 			}
 			
 			prepare.setString(1, typeString);
-			prepare.setString(2, "Placeholder Text");
+			prepare.setString(2, "Placeholder Text " + (int)(Math.random()*10000));
 			prepare.setInt(3, 1);
 			
 			int rows = prepare.executeUpdate();
@@ -232,7 +237,7 @@ public class CSVQuestion {
 			PreparedStatement prepare = Connector.connection.prepareStatement(addChoiceQuery);
 						
 			prepare.setInt(1, questionID);
-			prepare.setString(2, "Placeholder Text");
+			prepare.setString(2, "Placeholder Text "+ (int)(Math.random()*10000));
 			
 			int rows = prepare.executeUpdate();
 			Connector.disconnect();
@@ -281,6 +286,101 @@ public class CSVQuestion {
 			}
 		}catch(Exception e){
 			System.out.println("delete question" + e.toString());
+			Connector.disconnect();
+			return false;
+		}
+	}
+	
+	public static boolean deleteChoice(int choiceID){
+		try{
+			Connector.connect();
+			PreparedStatement prepare = Connector.connection.prepareStatement(deleteChoiceQuery);
+			prepare.setInt(1, choiceID);
+			
+			int rows = prepare.executeUpdate();
+			Connector.disconnect();
+			if (rows > 0){ 
+				System.out.println("rows greater than 0");
+				return true;
+			}else{
+				System.out.println("rows less than 0");
+				return false;
+			}
+		}catch(Exception e){
+			System.out.println("delete question" + e.toString());
+			Connector.disconnect();
+			return false;
+		}
+	}
+	
+	public static String getFeedBackFromQuestion(int questionID){
+	ArrayList<String[]> info = new ArrayList<String[]>();
+		
+		try{
+			Connector.connect();
+			PreparedStatement prepare = Connector.connection.prepareStatement(deleteQuestionSelectFeedbackQuery);
+			prepare.setInt(1, questionID);
+			
+			ResultSet resultset  = prepare.executeQuery();
+			if (!resultset.next()){ 
+				return "No entries returned";
+			}
+			
+        	do {
+        		String[] row = new String[9];
+        		row[0] = resultset.getString("first_name");
+        		row[1] = resultset.getString("last_name");
+        		row[2] = resultset.getString("email");
+        		row[3] = resultset.getString("typeOfEvent");
+        		row[4] = resultset.getString("typeOfQuestion");
+        		row[5] = resultset.getString("question").replaceAll(",", "\",\"").replace('\n', Character.MIN_VALUE);
+        		row[6] = resultset.getString("response").replaceAll(",", "\",\"").replace('\n', Character.MIN_VALUE);
+        		row[7] = resultset.getString("timeOfEvent");
+        		row[8] = resultset.getString("timeOfFeedback");
+        		info.add(row);
+        	} while (resultset.next());
+        	
+        	Connector.disconnect();
+
+			try{
+				StringBuilder builder = new StringBuilder();
+				builder.append(info.stream().map(row -> Arrays.stream(row).collect(Collectors.joining(", "))).collect(Collectors.joining("\n")));
+				return builder.toString();
+			}catch(Exception e){
+				return e.toString();
+			}			
+		}catch(SQLException e){
+			return e.toString();
+		}
+	}
+	
+	public static boolean deleteFeedBackAndQuestion(int questionID){
+		try{
+			Connector.connect();
+			PreparedStatement prepareChoice = Connector.connection.prepareStatement(deleteChoiceByQuestionQuery);
+			prepareChoice.setInt(1, questionID);
+			
+	
+			int rowsChoice = prepareChoice.executeUpdate();
+			
+			final String deleteQuestionsEvent = "delete from questions_event where questionID = ?";
+
+			PreparedStatement prepareQuestionEvent  = Connector.connection.prepareStatement(deleteQuestionsEvent);
+			prepareQuestionEvent.setInt(1, questionID);
+			
+			int rowsQuestionEvent  = prepareQuestionEvent.executeUpdate();
+			
+			final String deleteQuestionsFeedback = "delete from questions_feedback where questionID = ?";
+
+			PreparedStatement prepareQuestionFeedback  = Connector.connection.prepareStatement(deleteQuestionsFeedback);
+			prepareQuestionFeedback.setInt(1, questionID);
+			
+			int rowsQuestionFeedback  = prepareQuestionFeedback.executeUpdate();
+			
+			Connector.disconnect();
+			
+			return 	deleteQuestion(questionID);
+		}catch(Exception e){
 			Connector.disconnect();
 			return false;
 		}

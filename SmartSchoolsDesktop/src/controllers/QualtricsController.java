@@ -1,27 +1,43 @@
 package controllers;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import application.Main;
 import application.PageType.Type;
 import database.CSVQuestion;
 import database.Choice;
 import database.Question;
+import database.Question.QuestionType;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldListCell;
-import javafx.scene.control.Alert
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.stage.Window;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
+@SuppressWarnings("unused")
 public class QualtricsController extends PageController {
 	private final List<String> typeOfQuestions = Arrays.asList(Question.QuestionType.MUTI_CHOICE.name(), Question.QuestionType.FREE_RESPONSE.name(), Question.QuestionType.WHO_WITH.name(), Question.QuestionType.ANTICIPIATED.name());
 	
@@ -60,7 +76,7 @@ public class QualtricsController extends PageController {
 		    	clearListView(choicesList);
 		    	clearListView(questionsList);
 		    	
-		    	setButtonState();
+		    	setButtonStateTypePress();
 		    	
 		    	getAndSetQuestions();
 		    }
@@ -81,7 +97,7 @@ public class QualtricsController extends PageController {
 		    	}
 		    	clearListView(choicesList);
 		    	
-		    	setButtonState();
+		    	setButtonStateQuestionPress();
 		    	
 		    	getAndSetChoices();
 		    }
@@ -100,6 +116,7 @@ public class QualtricsController extends PageController {
 		    	}else{
 		    		System.out.println("null");
 		    	}
+				setButtonStateChoicePress();
 		    }
 		});
 		
@@ -116,31 +133,61 @@ public class QualtricsController extends PageController {
 		});
     }
 	
-	private void setButtonState(){
+	private void setButtonStateTypePress(){
+		if(currentSelectedTypeQuestion == QuestionType.ANTICIPIATED){
+			addQuestionButton.disableProperty().set(true);
+		}else{
+			addQuestionButton.disableProperty().set(false);
+		}
+		
+		addChoiceButton.disableProperty().set(true);
+		deleteChoiceButton.disableProperty().set(true);
+		deleteQuestionButton.disableProperty().set(true);
+	}
+	
+	private void setButtonStateQuestionPress(){
 		switch(currentSelectedTypeQuestion){
 		case ANTICIPIATED:
 			addQuestionButton.disableProperty().set(true);
 			addChoiceButton.disableProperty().set(true);
-    		deleteChoiceButton.disableProperty().set(true);
     		deleteQuestionButton.disableProperty().set(true);
 			break;
 		case FREE_RESPONSE:
 			addQuestionButton.disableProperty().set(false);
 			addChoiceButton.disableProperty().set(true);
-			deleteChoiceButton.disableProperty().set(true);
     		deleteQuestionButton.disableProperty().set(false);
 			break;
 		case MUTI_CHOICE:
 			addQuestionButton.disableProperty().set(false);
 			addChoiceButton.disableProperty().set(false);
-			deleteChoiceButton.disableProperty().set(false);
     		deleteQuestionButton.disableProperty().set(false);
 			break;
 		case WHO_WITH:
 			addQuestionButton.disableProperty().set(false);
 			addChoiceButton.disableProperty().set(false);
-			deleteChoiceButton.disableProperty().set(false);
     		deleteQuestionButton.disableProperty().set(false);
+			break;
+    	}
+		deleteChoiceButton.disableProperty().set(true);
+	}
+	
+	private void setButtonStateChoicePress(){
+		switch(currentSelectedTypeQuestion){
+		case ANTICIPIATED:
+			addChoiceButton.disableProperty().set(true);
+			deleteChoiceButton.disableProperty().set(true);
+			break;
+		case FREE_RESPONSE:
+			addChoiceButton.disableProperty().set(true);
+			deleteChoiceButton.disableProperty().set(true);
+			break;
+		case MUTI_CHOICE:
+			addChoiceButton.disableProperty().set(false);
+			deleteChoiceButton.disableProperty().set(false);
+			break;
+		case WHO_WITH:
+			addChoiceButton.disableProperty().set(false);
+			deleteChoiceButton.disableProperty().set(false);
 			break;
     	}
 	}
@@ -167,13 +214,14 @@ public class QualtricsController extends PageController {
 				choicesAsStrings.add("This type of question can't have choices");
 				break;
 			case WHO_WITH:
-			case MUTI_CHOICE: choicesAsStrings.add("You must add a choice for this question or the app will break");
+			case MUTI_CHOICE: choicesAsStrings.add("You must add a choice for this question or the mobile app will break");
 				break;
 	    	}
 		}
 		choicesList.setItems(FXCollections.observableArrayList(choicesAsStrings));
 		choicesList.setCellFactory(TextFieldListCell.forListView());
 		choicesList.getSelectionModel().clearSelection();
+		
 	}
 	
 	private void clearListView(ListView<String> view){
@@ -207,29 +255,30 @@ public class QualtricsController extends PageController {
 			System.out.println("delete succesfull");
 		}else{
 			System.out.println("delete not completed");
+			createQuestionHasFeedbackAlert();
 		}
 	}
 	
 	@FXML 
 	private void deleteChoicePress(Event event) {
-		
+		if(CSVQuestion.deleteChoice(currentChoiceID)){
+			getAndSetChoices();
+			System.out.println("delete succesfull");
+		}else{
+			System.out.println("delete not completed");
+		}
 	}
 	
 	private void createQuestionHasFeedbackAlert(){
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Exception Dialog");
-		alert.setHeaderText("Look, an Exception Dialog");
-		alert.setContentText("Could not find file blabla.txt!");
 
-		Exception ex = new FileNotFoundException("Could not find file blabla.txt");
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Warning");
+		alert.setHeaderText("Delete Questions Conflict");
+		alert.setContentText("This question has already been sent to the users. If you delete it, you will delete their responses as well (permanently).");
 
-		// Create expandable Exception.
-		StringWriter sw = new StringWriter();
-		PrintWriter pw = new PrintWriter(sw);
-		ex.printStackTrace(pw);
-		String exceptionText = sw.toString();
+		String exceptionText = CSVQuestion.getFeedBackFromQuestion(currentQuestionID);
 
-		Label label = new Label("The exception stacktrace was:");
+		Label label = new Label("Here are the responses you'll be deleteing forever:");
 
 		TextArea textArea = new TextArea(exceptionText);
 		textArea.setEditable(false);
@@ -244,7 +293,17 @@ public class QualtricsController extends PageController {
 		expContent.setMaxWidth(Double.MAX_VALUE);
 		expContent.add(label, 0, 0);
 		expContent.add(textArea, 0, 1);
-
+		
+		Button doItAnywayButton = new Button("Do it anyway");
+		doItAnywayButton.setOnAction(e -> {
+			CSVQuestion.deleteFeedBackAndQuestion(currentQuestionID);
+			getAndSetQuestions();
+			getAndSetChoices();
+			alert.close();
+		});
+		
+		expContent.add(doItAnywayButton, 0, 2);
+			
 		// Set expandable Exception into the dialog pane.
 		alert.getDialogPane().setExpandableContent(expContent);
 
