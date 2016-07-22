@@ -53,7 +53,6 @@ public class SeriousWipeController extends PageController {
 	    	 Connector.disconnect();
 	     
 	     }else{
-	    	 user.setSignedIn(false);
 	    	 user.setPassword("");
 	    	 incorrectPasswordLabel.setVisible(true);
 	    	 incorrectPasswordLabel2.setVisible(true);
