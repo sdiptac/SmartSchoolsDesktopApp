@@ -309,4 +309,19 @@ public class QualtricsController extends PageController {
 
 		alert.showAndWait();
 	}
+	
+	@Override
+	protected void viewHelpPress(Event event) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Help");
+		alert.setHeaderText("Questions Help");
+		alert.setContentText("The left pane contains the different types of questions. These cannot be changed.\n"
+				+ "The middle pane contains the questions of the type displayed in the left pane.\n"
+				+ "The right pane contains the choices for the currently selected question.\n\n"
+				+ "Click \"Add Question\" to add a question of the currently selected type. You cannot add questions of the type \"Anticipated.\"\n"
+				+ "Click \"Add Choice\" to add a choice for the currently selected question.\n"
+				+ "Deleting a question that has already been sent to the users will trigger a warning before you commit. If you delete it, you will lose the feedback to those questions as well.");
+
+		alert.showAndWait();
+	}
 }

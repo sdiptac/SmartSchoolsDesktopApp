@@ -10,7 +10,9 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.DirectoryChooser;
 
 public class QuestionsController extends PageController {
@@ -38,5 +40,15 @@ public class QuestionsController extends PageController {
 		if(Main.getInstance().getAdminUser().isSignedIn()){
 	    	 Main.getInstance().changeScene(PageType.pageMap.get(PageType.Type.QUALTRICS));
 	     }
+	}
+	
+	@Override
+	protected void viewHelpPress(Event event) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Help");
+		alert.setHeaderText("Questions Help");
+		alert.setContentText("For help concerning editing questions, first click the edit questions button and then click View->Help.");
+
+		alert.showAndWait();
 	}
 }
