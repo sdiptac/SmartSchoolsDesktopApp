@@ -22,6 +22,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -271,6 +272,18 @@ public class LocationController extends PageController {
 		
 		// Set expandable Exception into the dialog pane.
 		alert.getDialogPane().setExpandableContent(expContent);
+
+		alert.showAndWait();
+	}
+	
+	@Override
+	protected void viewHelpPress(Event event) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Help");
+		alert.setHeaderText("Location Help");
+		alert.setContentText("To upload access points, the access points should be in a CSV file (comma seperated values -- excel can save to that format). "
+				+ "The file should not contain a header for the columns. The columns should be in this order: ssid, bssid, room, building, organization, and then access point number.\n\n"
+				+ "If the access point doesn't exist in the database, it will say \"Successful\" if it uploaded. If the access point already exists, it will say \"Updated\" if it uploaded.");
 
 		alert.showAndWait();
 	}
