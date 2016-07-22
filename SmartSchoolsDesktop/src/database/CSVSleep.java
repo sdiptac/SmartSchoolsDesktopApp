@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import application.Connector;
 import application.ExportToCSV;
 
-public class CSVHeartRate {
-	final static String query = "select first_name,last_name,timeOfHR, dayOfHR, BPM from heartRate natural join user_device natural join user";
+public class CSVSleep{
+	final static String query = "select first_name, last_name, startTimeOfSleep, dayOfSleep, sleepDuration, inBedDuration, restlessCount, restlessDuration,sleepRecords from sleep natural join user_device natural join user";
 	static ResultSet resultset = null;
 	static PreparedStatement statement = null;
 	public static String write(String absolutePath){
@@ -25,20 +25,25 @@ public class CSVHeartRate {
 				return "No entries returned";
 			}
         	do {
-        		
-        		String[] row = new String[5];
+        		String[] row = new String[9];
         		row[0] = resultset.getString("first_name");
         		row[1] = resultset.getString("last_name");
-        		row[2] = resultset.getString("timeOfHR");
-        		row[3] = resultset.getString("dayOfHR");
-        		row[4] = resultset.getString("BPM");
+        		row[2] = resultset.getString("startTimeOfSleep");
+        		row[3] = resultset.getString("dayOfSleep");
+        		row[4] = resultset.getString("sleepDuration");
+        		row[5] = resultset.getString("inBedDuration");
+        		row[6] = resultset.getString("restlessCount");
+        		row[7] = resultset.getString("restlessDuration");
+				row[8] = resultset.getString("sleepRecords");
 				
-        		info.add(row);
+				
+				info.add(row);
+				System.out.println("after");
         	} while (resultset.next());
         	resultset.close();
         	Connector.disconnect();
 			try{
-				if(!ExportToCSV.export(absolutePath, "HeartRateData", new String[]{"First_Name", "Last_Name", "Time_of_HR", "Day_of_HR", "BPM"}, info)){
+				if(!ExportToCSV.export(absolutePath, "SleepData", new String[]{"First_Name", "Last_Name", "Start_Time_Of_Sleep", "Day_of_Sleep", "Sleep_Duration","In_Bed_Duration","Restless_Count","Restless_Duration","Sleep_Records"}, info)){
 					
 					return "The number of columns provided does not match the number of columns in the data"; 
 				}

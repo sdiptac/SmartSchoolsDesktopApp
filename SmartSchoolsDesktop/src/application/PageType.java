@@ -12,6 +12,10 @@ public class PageType {
 		USER,
 		QUESTION,
 		QUALTRICS,
+		FITBIT,
+		PREFERENCES,
+		WIPE,
+		SERIOUSWIPE
 	}
 	
 	 public static final Map<Type, String> pageMap;
@@ -23,6 +27,10 @@ public class PageType {
 	        map.put(Type.USER, "UsersPage");
 	        map.put(Type.QUESTION, "QuestionsPage");
 	        map.put(Type.QUALTRICS, "Qualtrics");
+	        map.put(Type.FITBIT, "FitbitPage");
+	        map.put(Type.PREFERENCES, "Preferences");
+	        map.put(Type.WIPE, "Wipe");
+	        map.put(Type.SERIOUSWIPE, "SeriousWipe");
 	        pageMap = Collections.unmodifiableMap(map);
 	    }
 }

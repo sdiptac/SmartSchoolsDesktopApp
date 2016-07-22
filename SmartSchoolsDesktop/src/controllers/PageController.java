@@ -14,7 +14,9 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 public class PageController implements Initializable{
 	@FXML
 	protected void preferencesQuit(Event event) {
-	     System.out.println("ap press");
+		if(Main.getInstance().getAdminUser().isSignedIn()){
+	    	 Main.getInstance().changeScene(PageType.pageMap.get(PageType.Type.PREFERENCES));
+	     }
 	}
 	
 	@FXML
@@ -44,9 +46,12 @@ public class PageController implements Initializable{
 	     }
 	}
 	
+	
 	@FXML
 	protected void fitbitPress(Event event) {
-	     System.out.println("fitbit press");
+		if(Main.getInstance().getAdminUser().isSignedIn()){
+	    	 Main.getInstance().changeScene(PageType.pageMap.get(PageType.Type.FITBIT));
+	     }
 	}
 	
 	@FXML

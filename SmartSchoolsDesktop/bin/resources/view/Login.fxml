@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#preferencesQuit" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#quitPress" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="View">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#usersPress" text="Users" />
+                  <MenuItem mnemonicParsing="false" onAction="#questionPress" text="Questions" />
+            <MenuItem mnemonicParsing="false" onAction="#locationsPress" text="Locations" />
+            <MenuItem mnemonicParsing="false" onAction="#fitbitPress" text="Fitbit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#viewHelpPress" text="View Help" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="720.0" minWidth="1280.0" prefWidth="1280.0" VBox.vgrow="ALWAYS">
+         <children>
+            <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="569.0" layoutY="338.0" promptText="Admin Password" />
+            <Label fx:id="incorrectPasswordLabel" layoutX="592.0" layoutY="376.0" text="Incorrect Password" textAlignment="CENTER" textFill="#bc0000" />
+            <Button layoutX="756.0" layoutY="339.0" mnemonicParsing="false" onMouseClicked="#signInPress" text="Sign In" />
+            <Label layoutX="601.0" layoutY="315.0" text="Admin Password" textAlignment="CENTER" />
+         </children>
+    </AnchorPane>
+  </children>
+</VBox>

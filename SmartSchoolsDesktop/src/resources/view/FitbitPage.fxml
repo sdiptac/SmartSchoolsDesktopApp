@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FitbitController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#preferencesQuit" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#quitPress" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="View">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#usersPress" text="Users" />
+                  <MenuItem mnemonicParsing="false" onAction="#questionPress" text="Questions" />
+            <MenuItem mnemonicParsing="false" onAction="#locationsPress" text="Locations" />
+            <MenuItem mnemonicParsing="false" onAction="#fitbitPress" text="Fitbit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#viewHelpPress" text="View Help" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="720.0" minWidth="1280.0" prefWidth="1280.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Button fx:id="printHeartRateButton" layoutX="523.0" layoutY="150.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="234.0" text="Create CSV of Heart Rate Data For All Users, All Time" textAlignment="CENTER" wrapText="true" />
+         	<Button fx:id="printDailyActivityButton" layoutX="523.0" layoutY="300.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="234.0" text="Create CSV of Daily Activity Data For All Users, All Time" textAlignment="CENTER" wrapText="true" />
+         	<Button fx:id="printSleepButton" layoutX="523.0" layoutY="450.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="234.0" text="Create CSV of Sleep Data For All Users, All Time" textAlignment="CENTER" wrapText="true" />
+         </children>
+    </AnchorPane>
+  </children>
+</VBox>

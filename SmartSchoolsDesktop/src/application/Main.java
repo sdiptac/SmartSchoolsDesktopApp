@@ -1,6 +1,8 @@
 package application;
 	
 import java.io.IOException;
+
+import database.CSVHeartRate;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
@@ -21,6 +23,7 @@ public class Main extends Application {
 		adminUser = new AdminUser();
 		
 		changeScene("Login");
+		
 	}
 	
 	public void changeScene(String sceneName){		
@@ -31,6 +34,7 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("/resources/view/application.css").toExternalForm());
 			currentStage.setScene(scene);
 			currentStage.show();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
