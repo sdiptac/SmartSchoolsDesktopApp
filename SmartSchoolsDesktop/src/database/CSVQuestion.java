@@ -31,7 +31,6 @@ public class CSVQuestion {
 	private static final String ANTICIPICATED = "anticipated";
 	private static final String FREE_RESPONSE = "fr";
 	
-	
 	public static String write(String absolutePath){
 		ArrayList<String[]> info = new ArrayList<String[]>();
 		
@@ -133,7 +132,6 @@ public class CSVQuestion {
 			
         	do {        		
         		Choice choice = new Choice(resultset.getInt("choiceID"), questionID, resultset.getString("choice"));
-
         		choices.add(choice);
         	} while (resultset.next());
 			
@@ -361,21 +359,21 @@ public class CSVQuestion {
 			prepareChoice.setInt(1, questionID);
 			
 	
-			int rowsChoice = prepareChoice.executeUpdate();
+			prepareChoice.executeUpdate();
 			
 			final String deleteQuestionsEvent = "delete from questions_event where questionID = ?";
 
 			PreparedStatement prepareQuestionEvent  = Connector.connection.prepareStatement(deleteQuestionsEvent);
 			prepareQuestionEvent.setInt(1, questionID);
 			
-			int rowsQuestionEvent  = prepareQuestionEvent.executeUpdate();
+			prepareQuestionEvent.executeUpdate();
 			
 			final String deleteQuestionsFeedback = "delete from questions_feedback where questionID = ?";
 
 			PreparedStatement prepareQuestionFeedback  = Connector.connection.prepareStatement(deleteQuestionsFeedback);
 			prepareQuestionFeedback.setInt(1, questionID);
 			
-			int rowsQuestionFeedback  = prepareQuestionFeedback.executeUpdate();
+			prepareQuestionFeedback.executeUpdate();
 			
 			Connector.disconnect();
 			

@@ -36,6 +36,7 @@
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="720.0" minWidth="1280.0" prefWidth="1280.0" VBox.vgrow="ALWAYS">
          <children>
             <Button fx:id="printButton" layoutX="523.0" layoutY="336.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="234.0" text="Create CSV of Access Point Data For All Users, All Time" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="uploadAcessPointsButton" layoutX="523.0" layoutY="196.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="234.0" text="Upload Access Points" textAlignment="CENTER" wrapText="true" />
          </children>
     </AnchorPane>
   </children>
