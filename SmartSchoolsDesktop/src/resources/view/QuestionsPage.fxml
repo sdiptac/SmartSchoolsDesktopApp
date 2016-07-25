@@ -35,8 +35,16 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="720.0" minWidth="1280.0" prefWidth="1280.0" VBox.vgrow="ALWAYS">
          <children>
-            <Button fx:id="printButton" layoutX="523.0" layoutY="336.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="234.0" text="Create CSV of Questions Data For All Users, All Time" textAlignment="CENTER" wrapText="true" />
-            <Button layoutX="523.0" layoutY="168.0" mnemonicParsing="false" onAction="#editButtonPress" prefHeight="49.0" prefWidth="234.0" text="Edit Questions" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="printButton" layoutX="759.0" layoutY="336.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="234.0" text="Create CSV of Questions Data For All Users, All Time" textAlignment="CENTER" wrapText="true" />
+            <Button layoutX="759.0" layoutY="168.0" mnemonicParsing="false" onAction="#editButtonPress" prefHeight="49.0" prefWidth="234.0" text="Edit Questions" textAlignment="CENTER" wrapText="true" />
+            <TextField fx:id="startTimeField" layoutX="100.0" layoutY="179.0" />
+            <TextField fx:id="endTimeField" layoutX="299.0" layoutY="179.0" />
+            <TextField fx:id="minTimesField" layoutX="100.0" layoutY="347.0" />
+            <TextField fx:id="maxTimesField" layoutX="299.0" layoutY="347.0" />
+            <Label layoutX="152.0" layoutY="151.0" text="Start Time" />
+            <Label layoutX="351.0" layoutY="151.0" text="End Time" />
+            <Label layoutX="105.0" layoutY="319.0" text="Min Times Asked Per Day" />
+            <Label layoutX="300.0" layoutY="319.0" text="Max Times Asked Per Day" />
          </children>
     </AnchorPane>
   </children>
