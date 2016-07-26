@@ -10,6 +10,7 @@ public class ExportToCSV {
 	public static boolean export(String absolutePath, String name, String[] col, ArrayList<String[]> data) throws FileNotFoundException{
 		System.out.println(name);
 		if(col.length != data.get(0).length){
+			System.out.println("question col length not same");
 			return false;
 		}
 		
@@ -27,6 +28,7 @@ public class ExportToCSV {
 			writer.write(builder.toString());
 			writer.close();
 		}catch(Exception e){
+			System.out.println("csv export question "+e.toString());
 			return false;
 		}
 		
