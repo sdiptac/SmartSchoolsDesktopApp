@@ -11,7 +11,7 @@ import application.Connector;
 import application.ExportToCSV;
 
 public class CSVDailyActivity {
-	final static String query = "select first_name,last_name,calories, stepCount, floors,restingHR,dayOfActivity from dailyActivity natural join user_device natural join user";
+	final static String query = "select first_name,last_name,email, calories, stepCount, floors,restingHR,dayOfActivity from dailyActivity natural join user_device natural join user";
 	static ResultSet resultset = null;
 	static PreparedStatement statement = null;
 	public static String write(String absolutePath){
@@ -26,14 +26,15 @@ public class CSVDailyActivity {
 			}
         	do {
         		
-        		String[] row = new String[7];
+        		String[] row = new String[8];
         		row[0] = resultset.getString("first_name");
         		row[1] = resultset.getString("last_name");
-        		row[2] = resultset.getString("calories");
-        		row[3] = resultset.getString("stepCount");
-        		row[4] = resultset.getString("floors");
-        		row[5] = resultset.getString("restingHR");
-        		row[6] = resultset.getString("dayOfActivity");
+        		row[2] = resultset.getString("email");
+        		row[3] = resultset.getString("calories");
+        		row[4] = resultset.getString("stepCount");
+        		row[5] = resultset.getString("floors");
+        		row[6] = resultset.getString("restingHR");
+        		row[7] = resultset.getString("dayOfActivity");
         		
 				
         		info.add(row);
@@ -41,7 +42,7 @@ public class CSVDailyActivity {
         	resultset.close();
         	Connector.disconnect();
 			try{
-				if(!ExportToCSV.export(absolutePath, "DailyActivityData", new String[]{"First_Name", "Last_Name", "Calories", "Step_Count", "Floors", "Resting_Heart_Rate", "Day_of_Activity"}, info)){
+				if(!ExportToCSV.export(absolutePath, "DailyActivityData", new String[]{"First_Name", "Last_Name", "Email", "Calories", "Step_Count", "Floors", "Resting_Heart_Rate", "Day_of_Activity"}, info)){
 					
 					return "The number of columns provided does not match the number of columns in the data"; 
 				}

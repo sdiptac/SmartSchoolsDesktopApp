@@ -43,23 +43,23 @@ public class CSVQuestion {
 			}
 			
         	do {
-        		String[] row = new String[9];
+        		String[] row = new String[10];
         		row[0] = resultset.getString("first_name");
         		row[1] = resultset.getString("last_name");
         		row[2] = resultset.getString("email");
         		row[3] = resultset.getString("typeOfEvent");
-        		row[4] = resultset.getString("typeOfQuestion");
-        		row[5] = resultset.getString("question").replaceAll(",", "\",\"").replace('\n', Character.MIN_VALUE);
-        		row[6] = resultset.getString("response").replaceAll(",", "\",\"").replace('\n', Character.MIN_VALUE);
-        		row[7] = resultset.getString("timeOfEvent");
-        		row[8] = resultset.getString("timeOfFeedback");
+        		row[5] = resultset.getString("typeOfQuestion");
+        		row[6] = resultset.getString("question").replaceAll(",", ";").replace('\n', Character.MIN_VALUE);
+        		row[7] = resultset.getString("response").replaceAll(",", ";").replace('\n', Character.MIN_VALUE);
+        		row[8] = resultset.getString("timeOfEvent");
+        		row[9] = resultset.getString("timeOfFeedback");
         		info.add(row);
         	} while (resultset.next());
         	
         	Connector.disconnect();
 
 			try{
-				if(!ExportToCSV.export(absolutePath, "QuestionData", new String[]{"First Name", "Last Name", "Email", "Time of Event", "Type of Question", "Question", "Response", "Time of Event", "Time of Feedback"}, info)){
+				if(!ExportToCSV.export(absolutePath, "QuestionData", new String[]{"First Name", "Last Name", "Email", "Type of Event", "Type of Question", "Question", "Response", "Time of Event", "Time of Feedback"}, info)){
 					return "The number of columns provided does not match the number of columns in the data"; 
 				}
 			}catch(FileNotFoundException f){
