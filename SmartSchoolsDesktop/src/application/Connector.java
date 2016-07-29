@@ -3,7 +3,7 @@ package application;
 import java.sql.*;
 
 public class Connector {
-	private static final String url = "jdbc:mysql://lusmartschools.cymnuwsxway1.us-east-1.rds.amazonaws.com/ssdb";
+	private static final String url = "jdbc:mysql://lusmartschools.cs0aas51ervf.us-east-1.rds.amazonaws.com/ssdb";
 	private static final String user = "admin";
 	public static Connection connection = null;
 	
